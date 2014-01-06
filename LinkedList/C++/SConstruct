@@ -1,0 +1,7 @@
+env = Environment()
+
+env.Append(CPPPATH=['./'])
+env.Append(CCFLAGS=['-g'])
+t = env.Program(target='test', source=['TestLinkedList.cpp'])
+
+Default(t)
