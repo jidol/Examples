@@ -9,48 +9,47 @@ class LinkedList
    public:
 
       // Basic Constructor
-      LinkedList(int defaultSize=10);
+      LinkedList();
 
       // Basic Destructor
       ~LinkedList();
 
-      // Array Access
-      T* operator[](const int value);
-
       // Contains element
       bool contains(const T* value);
 
-      // Pop top element
-      T* pop();
+      // Add
+      void add(T* value, int index=-1);
 
-      // Push element
-      void push(T* value);
+      // Remove
+      void remove(T* value);
 
-      // Get size
-      inline long size() { return _mySize; };
+      // Remove
+      void remove(int index);
+
+      // Get
+      // If index is invalid, null is returned
+      T* get(int index);
+
+      // Is valid
+      inline bool isEmpty() { return (_myStorage == 0); }
 
    protected:
 
-      // Is valid
-      inline bool isValid() { return (_myStorage != 0); }
+      // Internal get that returns the LinkElement
+      ListElement<T>* getInternal(int index);
 
-      ListElement* _myStorage;
+      // Main storage
+      ListElement<T>* _myStorage;
 
-      // Size
-      long _mySize;
-
-      // Insert Location
-      long _myNextInsertLocation;
+      // Pointer to the last element
+      ListElement<T>* _myLastElement;
 };
 
 template <class T>
-LinkedList<T>::LinkedList(int defaultSize):
+LinkedList<T>::LinkedList():
 _myStorage(0),
-_mySize(defaultSize),
-_myNextInsertLocation(0)
+_myLastElement(0)
 {
-   _myStorage = createElement();
-   populate(_myStorage, _mySize);
 }
 
 template <class T>
@@ -58,27 +57,107 @@ LinkedList<T>::~LinkedList()
 {
    if(0 != _myStorage)
    {
+      while(!isEmpty())
+         remove(0);
+
       delete _myStorage;
       _myStorage = 0;
-      _mySize = -1;
-      _myNextInsertLocation = -1;
+      _myLastElement = 0;
    }
 }
 
 template <class T>
-T* LinkedList<T>::operator[] (const int value)
+void LinkedList<T>::add(T* value, int index)
 {
-   T* result = 0;
-   LinkElemnt* iter = _myStorage;
+   if(0 == _myStorage)
+   {
+      _myStorage = new ListElement<T>(value);
+      _myLastElement = _myStorage;
+   }
+   else if(index == -1)
+   {
+      _myStorage = new ListElement<T>(value, _myStorage);
+   }
+   else
+   {
+      ListElement<T>* iter = getInternal(index);
+      if(0 == iter)
+      {
+         iter = new ListElement<T>(value);
+         _myLastElement->setNext(iter);
+         _myLastElement = iter;
+      } 
+   }
+}
+
+template <class T>
+T* LinkedList<T>::get(int index)
+{
+   ListElement<T>* iter = getInternal(index);
 
    if(0 != iter)
+      return iter->element();
+   else
+      return 0;
+}
+
+template <class T>
+ListElement<T>* LinkedList<T>::getInternal(int index)
+{
+   ListElement<T>* ptr = _myStorage;
+   for(int i=0; i < index && ptr != 0; ++i)
    {
-      for(int i = 0; i < value; ++i)
-      {
-         if(0 != iter)
-            iter = iter->next();
-      }
-      result = iter->elment();
+      ptr = ptr->next();
    }
-   return result; 
+
+   return ptr;
+}
+
+template <class T>
+void LinkedList<T>::remove(T* value)
+{
+   ListElement<T>* iter = _myStorage;
+   if(*(iter->element()) != *value)
+   {
+      while(0 != iter->next() && 
+            *(iter->next()->element()) != *value)
+        iter = iter->next();
+      if(0 != iter && *(iter->next()->element()) == *value)
+      {
+         ListElement<T>* match = iter->next();
+         iter->setNext(match->next());
+         delete match;
+      }
+   }
+   else
+   {
+      ListElement<T>* match = iter;
+      _myStorage = iter->next();
+      delete match;
+   }
+}
+
+template <class T>
+void LinkedList<T>::remove(int index)
+{
+   // Granted not very efficent, but simple
+   remove(get(index));
+}
+
+template <class T>
+bool LinkedList<T>::contains(const T* value)
+{
+   bool status = false;
+   ListElement<T>* iter = _myStorage;
+   while(0 != iter)
+   {
+      if(*(iter->element()) == *value)
+      {
+         status = true;
+         break;
+      }
+      else
+         iter = iter->next();
+   }
+   return status;
 }

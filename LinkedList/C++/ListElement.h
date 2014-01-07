@@ -17,10 +17,10 @@ class ListElement
       void element(T* element);
 
       // Get Next
-      ListElement* next();
+      ListElement<T>* next();
 
       // Set Next
-      void next(ListElement* e);
+      void setNext(ListElement<T>* e);
 
    protected:
 
@@ -32,39 +32,41 @@ class ListElement
 };
 
 template <class T>
-ListElement::ListElement(T* element, ListElement<T>* link):
+ListElement<T>::ListElement(T* element, ListElement<T>* link):
 _myElement(element),
 _myLink(link)
 {
+
 }
 
 template <class T>
-ListElement::~ListElement()
+ListElement<T>::~ListElement()
 {
+   delete _myElement;
    _myElement = 0;
    _myLink = 0;
 }
 
 template <class T>
-T* ListElement::element()
+T* ListElement<T>::element()
 {
    return _myElement;
 }
 
 template <class T>
-void ListElement::element(T* element)
+void ListElement<T>::element(T* element)
 {
    _myElement = element;
 }
 
 template <class T>
-ListElement* ListElement::next()
+ListElement<T>* ListElement<T>::next()
 {
    return _myLink;
 }
 
 template <class T>
-void ListElement::next(LinkElement* e)
+void ListElement<T>::setNext(ListElement<T>* e)
 {
    _myLink = e;
 }
