@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class OddEven extends Process
 {
 	/**
@@ -49,7 +47,7 @@ public class OddEven extends Process
 	}
 
 	/**
-	 * Overriden from base class.  Will check even/odd.
+	 * Implement abstract function from base class.  Will check even/odd.
 	 * @param value  Value to check
 	 */
 	protected void check(int value)

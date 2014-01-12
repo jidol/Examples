@@ -22,6 +22,8 @@ public class Prime extends OddEven
 
 	/**
 	 * Override base class to do the check we need.
+	 * In this case we are doing an override as the base class does implement
+	 * the Process abstract version.
 	 */
 	protected void check(int value)
 	{
@@ -73,7 +75,7 @@ public class Prime extends OddEven
 	private int sumParts(int value)
 	{
 		int result = 0;
-		for(Integer i: ParseInt.parseIntToParts(value))
+		for(Integer i: ParseInt.parseIntoDigits(value))
 			result += i.intValue();
 		return result;
 	}

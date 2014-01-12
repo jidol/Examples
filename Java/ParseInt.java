@@ -11,7 +11,7 @@ public class ParseInt
     * @return LinkedList of Integer objects that are the digits
     *         of the integer passed within.
     */
-   public static LinkedList<Integer> parseIntToParts(int value)
+   public static LinkedList<Integer> parseIntoDigits(int value)
    {
 	LinkedList<Integer> result = new LinkedList<Integer>();
 
@@ -48,5 +48,15 @@ public class ParseInt
 	}
 
 	return result;
+   }
+
+   /**
+    * Get the digits from the value as an array.
+    * @param value Value to be converted
+    * @return Array of Intger digit values
+    */
+   public static Integer[] parseDigitArray(int value)
+   {
+	return ParseInt.parseIntoDigits(value).toArray(new Integer[1]);
    }
 }
