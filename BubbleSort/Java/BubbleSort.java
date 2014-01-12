@@ -19,18 +19,61 @@ public class BubbleSort<T extends Comparable<T>>
       				// the completed elements at the end
       				for(int j=0; j < count - i; ++j)
       				{
-	 				T posOne = data[j];
-         				T valOne = posOne;
-         				T valTwo = data[j+1];
-         				if( valOne.compareTo(valTwo) > 0 )
-         				{
-            					data[j] = valTwo;
-            					data[j+1] = valOne;
-         				}
-      				}
+					updateIndex(data, j, j+1);
+	      			}
    			}
 		}
 	}
+
+	/**
+	 * Implemented in recursive method for Bubble Sort
+	 * @param data Array of data to be sorted
+	 * @param index Index to start sorting
+	 */
+	public void sortRecursive(T[] data, int index)
+	{
+		if(null != data)
+		{
+			int size = data.length;
+			if(index < size)
+			{
+				for(int i=index; i < size; ++i)
+				{
+					int next = index + 1;
+					if(index < data.length - 1)
+						sortRecursive(data,next);
+					updateIndex(data, index, next);
+				}
+			}
+		}
+	}
+
+	/*
+	 * Update the given two indexs to be in the correct order.  No action
+	 * taken on bad inputs
+	 * @param data Data to sort
+	 * @param posOne First index which must be less than posTwo
+	 * @param posTwo Second index which must be greater than posOne and less than length of data
+	 */
+	private void updateIndex(T[] data, int posOne, int posTwo)
+	{
+		if(null != data)
+		{
+			int size = data.length;
+			if(posOne < posTwo && posTwo < size)
+			{
+				T valOne = data[posOne];
+       				T valTwo = data[posTwo];
+       				if( valOne.compareTo(valTwo) > 0 )
+       				{
+  					data[posOne] = valTwo;
+        				data[posTwo] = valOne;
+       				}
+			}
+		}
+	}
+
+
 
 	/**
 	 * Basic test using integers passed in as arguments
@@ -56,7 +99,16 @@ public class BubbleSort<T extends Comparable<T>>
 		Integer[] d = data.toArray(new Integer[1]);
 		bubble.sort(d);
 		for(Integer v:d)
-			System.out.println(v.toString());
+			if(null != v)
+				System.out.println(v.toString());
+		d = null;
+		System.out.println("========");
+		System.out.println("Recursive Way");
+		d = data.toArray(new Integer[1]);
+		bubble.sortRecursive(d, 0);
+		for(Integer v:d)
+			if(null != v)
+				System.out.println(v.toString());
 		d = null;
 		data = null;
 		
