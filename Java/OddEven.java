@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 public class OddEven extends Process
 {
+	/**
+	 * Check to see if the integers passed in are
+	 * even or odd using both the modulus and bit
+	 * check method
+	 */
 	public static void main(String[] args)
 	{
 		OddEven checker = new OddEven();
@@ -43,6 +48,10 @@ public class OddEven extends Process
 		useBitCheck = false;
 	}
 
+	/**
+	 * Overriden from base class.  Will check even/odd.
+	 * @param value  Value to check
+	 */
 	protected void check(int value)
 	{
 		if(isValueEven(value))

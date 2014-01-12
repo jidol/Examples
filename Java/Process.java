@@ -1,11 +1,7 @@
 import java.util.Scanner;
 
-public class Process
+public abstract class Process
 {
-        public Process()
-	{
-	}
-
 	/**
 	 * Basic check of all integers within the arguments
 	 * @param args
@@ -26,8 +22,9 @@ public class Process
 		}
 	}
 
-	protected void check(int value)
-	{
-		// No Action
-	}
+	/**
+	 * Function to be overriden by child classes
+	 * @param value Value to check
+	 */
+	abstract void check(int value);
 }
