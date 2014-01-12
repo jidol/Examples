@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class OddEven
+public class OddEven extends Process
 {
 	public static void main(String[] args)
 	{
@@ -43,27 +43,12 @@ public class OddEven
 		useBitCheck = false;
 	}
 
-	/**
-	 * Check an array of integers to see if they are even or odd
-	 * @param args
-	 *   Array of strings to check as integers and odd/even
-	 */
-	public void doCheck(String[] args)
+	protected void check(int value)
 	{
-		for(String value:args)
-		{
-			Scanner s = new Scanner(value);
-
-			while(s.hasNextInt())
-			{
- 				int compareValue = s.nextInt();
-				if(isValueEven(compareValue))
-					System.out.println("Even:  " + compareValue);
-				else
-					System.out.println(" Odd:  " + compareValue);
-			}
-			s = null;
-		}
+		if(isValueEven(value))
+			System.out.println("Even:  " + value);
+		else
+			System.out.println(" Odd:  " + value);
 	}
 
         /**
@@ -71,7 +56,7 @@ public class OddEven
          * @param value Value to chekc
 	 * @return True if even otherwise false
 	 */
-	private boolean isValueEven(int value)
+	protected boolean isValueEven(int value)
 	{
 		return useBitCheck == true ? 
 			isBitEven(value) : isModEven(value);
