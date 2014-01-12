@@ -1,7 +1,8 @@
-import java.util.Scanner;
-
 public class Prime extends OddEven
 {
+	/**
+	 * Check if the values passed in are prime
+	 */
 	public static void main(String[] args)
 	{
 		Prime checker = new Prime();
@@ -11,32 +12,48 @@ public class Prime extends OddEven
 		checker = null;
 	}
 
+	/**
+	 * Basic constructor passing on true to OddEven to use bit check
+	 */
         public Prime()
 	{
 		super(true);
 	}
 
+	/**
+	 * Override base class to do the check we need.
+	 */
 	protected void check(int value)
 	{
+		// Check basic is even
 		if(isValueEven(value))
 		{
 			System.out.println("Value is even so cannot be prime:  " + value);
 		}
+		// Check basic divide by 3 or sum of parts is divisible by 3
 		else if(isDivisibleByThree(value) ||
 		 isDivisibleByThree(sumParts(value)))
 		{
 			System.out.println("Value is divisible by three so cannot be prime:  " + value);
 		}
+		// Check if sum of last two characters are divisible by 4
 		else if(isDivisibleByFour(sumLastTwo(value)))
 		{
 			System.out.println("Last two numbers sum is divisible by 4 so cannot be prime:  " + value);
 		}
+		// This was not an exhaustive test, but will detect most basic values
 		else
 		{
 			System.out.println("Value might be prime:  " + value);
 		}
 	}
 
+	/**
+	 * Return the sum of the last two numbers in this value
+	 * Example 1234, add 3 and 4 and return 7
+	 * @param value Integer to add
+	 * @return Sum of the last two digits
+	 */
 	private int sumLastTwo(int value)
 	{
 		int result = 0;
@@ -48,6 +65,11 @@ public class Prime extends OddEven
 		return result;
 	}
 
+	/**
+	 * Return the sum of the digits that make up the value
+	 * @param value Integer to add up the digits
+	 * @return Sum of the digits in the value
+	 */
 	private int sumParts(int value)
 	{
 		int result = 0;
@@ -56,11 +78,21 @@ public class Prime extends OddEven
 		return result;
 	}
 
+	/**
+	 * Check to see if the value is divisible by three.
+	 * @param value Integer to check
+	 * @return True if it is divisible by three
+	 */
 	private boolean isDivisibleByThree(int value)
 	{
 		return value % 3 == 0 ? true : false;
 	}
 
+	/**
+	 * Check to see if the value is divisible by four.
+	 * @param value Integer to check
+	 * @return True if it is divisible by four
+	 */
 	private boolean isDivisibleByFour(int value)
 	{
 		return value % 4 == 0 ? true : false;
