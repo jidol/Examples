@@ -27,7 +27,7 @@
        <echo message="java doc has been generated!" />
    </target>
 
-   <target name="build" description="Compile source tree java files">
+   <target name="build" depends="gen-doc" description="Compile source tree java files">
         <mkdir dir="${build.dir}"/>
         <javac destdir="${build.dir}">
             <src path="${src.dir}"/>
