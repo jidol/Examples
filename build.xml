@@ -17,7 +17,7 @@
         <jar destfile="build/Example.jar" basedir="${build.dir}"> </jar>
     </target>
 
-   <target name="generate-javadoc">
+   <target name="gen-doc">
        <javadoc sourcepath="${src.dir}" 
            destdir="doc" version="true" windowtitle="Examples">
          <bottom>
