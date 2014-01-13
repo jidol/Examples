@@ -39,6 +39,7 @@
             <fileset dir="${build.dir}">
                 <include name="**/*.class"/>
                 <include name="**/*.*.swp"/>
+                <include name="**/.*.*.swp"/>
             </fileset>
         </delete>
    </target>
