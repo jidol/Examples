@@ -12,6 +12,8 @@ import java.math.BigInteger;
 
 /**
  * Create X number of Fibonacci values
+ * When X > 20 then done using iteration otherwise
+ * recursion is used.
  * 
  */
 public class Fibonacci 
