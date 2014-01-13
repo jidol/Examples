@@ -1,5 +1,12 @@
+package Example;
+
 import java.util.LinkedList;
 
+/**
+ * Find Armstrong numbers, where a three digit number
+ * whose digits when cubed and sum are equal to the
+ * original number.
+ */
 public class ArmstrongNumber extends Process
 {
 	/**

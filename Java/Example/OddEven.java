@@ -1,3 +1,8 @@
+package Example;
+
+/**
+ * Find odd and even integer finder
+ */
 public class OddEven extends Process
 {
 	/**

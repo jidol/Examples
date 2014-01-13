@@ -1,3 +1,9 @@
+package Example;
+
+/**
+ * Basic prime number identifiction. Will not confirm
+ * the value is a prime, only that it is likely a prime.
+ */
 public class Prime extends OddEven
 {
 	/**

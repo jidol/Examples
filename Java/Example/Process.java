@@ -1,5 +1,11 @@
+package Example;
+
 import java.util.Scanner;
 
+/** 
+ * Abstract class to extract integer values
+ * from an array of strings.
+ */
 public abstract class Process
 {
 	/**

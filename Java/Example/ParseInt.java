@@ -1,8 +1,13 @@
+package Example;
+
 import java.util.LinkedList;
 import java.lang.Integer;
 import java.io.StringReader;
 import java.io.IOException;
 
+/**
+ * Parse intger values into digits
+ */
 public class ParseInt
 {
    /**

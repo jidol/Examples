@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
    <project name="Examples" basedir="." default="info">
-
     <property name="src.dir" value="Java"/>
-    <property name="build.dir" value="${basdir}/classes"/>
+    <property name="build.dir" value="${src.dir}/classes"/>
 
    <patternset id="java.file">
      <include name="src/**/*.java"/>
@@ -12,6 +11,28 @@
    <fileset dir="${src}" casesensitive="yes">
      <patternset refid="java.files"/>
    </fileset>
+
+   <target name="jar">
+        <mkdir dir="build/"/>
+        <jar destfile="build/Example.jar" basedir="${build.dir}"> </jar>
+    </target>
+
+   <target name="generate-javadoc">
+       <javadoc sourcepath="${src.dir}" 
+           destdir="doc" version="true" windowtitle="Examples">
+         <bottom>
+            <![CDATA[Copyright © 2014. All Rights Reserved.]]>
+         </bottom>
+       </javadoc>
+       <echo message="java doc has been generated!" />
+   </target>
+
+   <target name="build" description="Compile source tree java files">
+        <mkdir dir="${build.dir}"/>
+        <javac destdir="${build.dir}">
+            <src path="${src.dir}"/>
+        </javac>
+    </target>
 
    <target name="clean" description="Clean output directories">
         <delete>

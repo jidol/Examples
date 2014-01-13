@@ -1,3 +1,8 @@
+package Example;
+
+/**
+ * Stupid HelloWorld class for testing build environment
+ */
 public class HelloWorld
 {
    /**
