@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+   <project name="Examples" basedir="." default="info">
+
+    <property name="src.dir" value="Java"/>
+    <property name="build.dir" value="${basdir}/classes"/>
+
+   <patternset id="java.file">
+     <include name="src/**/*.java"/>
+     <exclude name="src/**/*swp*"/>
+   </patternset>
+
+   <fileset dir="${src}" casesensitive="yes">
+     <patternset refid="java.files"/>
+   </fileset>
+
+   <target name="clean" description="Clean output directories">
+        <delete>
+            <fileset dir="${build.dir}">
+                <include name="**/*.class"/>
+                <include name="**/*.*.swp"/>
+            </fileset>
+        </delete>
+   </target>
+
+   <target name="info">
+      <echo>Hello World - Welcome to Apache Ant!</echo>
+      <echo>Apache Ant version is ${ant.version} </echo>
+      <echo>Java version ${java.version} </echo>
+   </target>
+</project>
