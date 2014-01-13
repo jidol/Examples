@@ -1,3 +1,12 @@
+/**
+ * Copyright Jeff Idol 2013 - 2014
+ * 
+ * Released under GNU GENERAL PUBLIC LICENSE Version 2
+ * See full license: https://github.com/jidol/Examples/blob/master/LICENSE
+ *
+ * All Source Available https://github.com/jidol/Examples
+ */
+
 #include <LinkedList.h>
 #include <iostream>
 
