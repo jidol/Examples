@@ -69,7 +69,7 @@ public class BinaryNode<T extends Comparable> implements
      * Set the left tree
      * @param value Value left tree node
      */
-    public void setLeft(BinaryNode value)
+    public void setLeft(BinaryNode<T> value)
     {
 	_left = value;
     }
@@ -78,7 +78,7 @@ public class BinaryNode<T extends Comparable> implements
      * Set the right tree
      * @param value Value right tree node
      */
-    public void setRight(BinaryNode value)
+    public void setRight(BinaryNode<T> value)
     {
 	_right = value;
     }
@@ -87,7 +87,7 @@ public class BinaryNode<T extends Comparable> implements
      * Get left left node
      * @return Left node
      */
-    public BinaryNode left()
+    public BinaryNode<T> left()
     {
 	return _left;
     }
@@ -96,7 +96,7 @@ public class BinaryNode<T extends Comparable> implements
      * Get right left node
      * @return right node
      */
-    public BinaryNode right()
+    public BinaryNode<T> right()
     {
 	return _right;
     }
