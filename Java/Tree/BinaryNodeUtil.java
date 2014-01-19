@@ -3,7 +3,7 @@ import java.lang.Comparable;
 import java.math.BigInteger;
 import java.util.Random;
 
-public class BinaryNodeSearch<T extends Comparable>
+public class BinaryNodeUtil<T extends Comparable>
 {
    /**
     * Determine if the subNode provided exists in source
@@ -56,7 +56,7 @@ public class BinaryNodeSearch<T extends Comparable>
    /**
     * Test logic using BigInteger
     */
-   public void test()
+   public void unitTest()
    {
 	final int count = 100;
 	BinaryNode source = BinaryNode.create(BigInteger.ONE);
@@ -66,7 +66,7 @@ public class BinaryNodeSearch<T extends Comparable>
         for(int i=0; i < count; ++i)
 	{
 		int rand = r.nextInt() % count;
-		testPopulate(source, rand, right, null);
+		unitTestPopulate(source, rand, right, null);
 		right = r.nextBoolean();
         }
 
@@ -101,7 +101,7 @@ public class BinaryNodeSearch<T extends Comparable>
     * @param right True if populate right node, otherwise populate left
     * @param data Data to add
     */
-   private void testPopulate(BinaryNode<T> test, int value, boolean right, BinaryNode data)
+   private void unitTestPopulate(BinaryNode<T> test, int value, boolean right, BinaryNode data)
    {
 	if(null == data)
 		data = BinaryNode.create(new BigInteger(""+value));
@@ -112,9 +112,9 @@ public class BinaryNodeSearch<T extends Comparable>
 	else
 	{
 	   if(true == right)
-	   	testPopulate(test.right(), value, !right, data);
+	   	unitTestPopulate(test.right(), value, !right, data);
 	   else
-		testPopulate(test.left(), value, !right, data);
+		unitTestPopulate(test.left(), value, !right, data);
 	}
    }
 
@@ -123,9 +123,9 @@ public class BinaryNodeSearch<T extends Comparable>
     */
    public static void main(String[] args)
    {
-	BinaryNodeSearch<BigInteger> search = 
-		new BinaryNodeSearch<BigInteger>();
-	search.test();
+	BinaryNodeUtil<BigInteger> search = 
+		new BinaryNodeUtil<BigInteger>();
+	search.unitTest();
 	search = null;
    }
    
