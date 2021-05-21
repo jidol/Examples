@@ -1,73 +1,82 @@
 from typing import Any
 
 
+class BinaryTreeNode:
+    def __init__(self, value):
+        self.value: Any = value
+        self.left = None
+        self.right = None
+        self.height: int = 1
+
+
 class BinaryTree:
-    value: Any = None
-    left = None
-    right = None
-    parent = None
+
+    def __init__(self, value: Any = None):
+        self.tree: BinaryTreeNode = None
+        if None is not value:
+            self.tree: BinaryTreeNode = BinaryTreeNode(value)
 
     def length(self) -> int:
-        count = self._length(self)
+        count = self._node_count(self.tree)
         return count
 
-    def _length(self, tree):
+    def _node_count(self, node: BinaryTreeNode) -> int:
         count = 0
-        if tree:
+        if node:
             count += 1
-            count += self._length(tree.left)
-            count += self._length(tree.right)
+            count += self._node_count(node.left)
+            count += self._node_count(node.right)
         return count
 
-    def add_value(self, value) -> None:
+    def add_value(self, value: Any) -> None:
         """
         Add new node to tree
         :param value:  Value
         :return:  None
         """
-        if None is self.value:
-            print('add root')
-            self.value = value
-        elif self.value != value:
-            if value < self.value:
-                if None is self.left:
-                    self.left = BinaryTree()
-                    self.left.parent = self
-                print('add left')
-                self.left.add_value(value)
-            else:
-                if None is self.right:
-                    self.right = BinaryTree()
-                    self.right.parent = self
-                print('add right')
-                self.right.add_value(value)
+        self.tree = self._add_node(self.tree, value)
 
-    def find_value(self, value):
+    def _add_node(self, node: BinaryTreeNode, value: Any) -> BinaryTreeNode:
+        if None is node:
+            return BinaryTreeNode(value)
+        else:
+            if node.value < value:
+                node.right = self._add_node(node.right, value)
+            elif node.value > value:
+                node.left = self._add_node(node.left, value)
+            node.height = 1 + max(self.get_height(node.left),
+                                  self.get_height(node.right))
+        return node
+
+    def find_value(self, value: Any) -> BinaryTreeNode:
         """
         Find the subtree matching the provided value
         :param value:  Value to match
         :return:  None or subtree
         """
-        if value == self.value:
-            return self
-        else:
-            if self.value > value and self.left:
-                return self.left.find_value(value)
-            elif self.value < value and self.right:
-                return self.right.find_value(value)
-        return None
+        return self._find_in_node(self.tree, value)
+
+    def _find_in_node(self, node: BinaryTreeNode, value) -> BinaryTreeNode:
+        if node:
+            if node.value == value:
+                return node
+            elif node.value > value:
+                return self._find_in_node(node.left, value)
+            elif node.value < value:
+                return self._find_in_node(node.right, value)
+        return node
 
     def print(self) -> None:
         """
         Print tree values
         :return:
         """
-        result: str = self._print_tree(self)
+        result: str = self._print_tree(self.tree)
         print(result)
 
-    def _print_tree(self, tree) -> str:
+    def _print_tree(self, tree: BinaryTreeNode) -> str:
         """
-        Print Node vlaues
+        Print Node values
         :param tree:  Tree to print
         :return: Data as string
         """
@@ -88,15 +97,15 @@ class BinaryTree:
                     result = f'{result} (EMPTY)'
         return result
 
-    def remove_value(self, value):
+    def remove_value(self, value: Any) -> None:
         """
         Remove value from this tree
         :param value:  Value to remove
-        :return:  Updated tree
+        :return:  None
         """
-        return self.remove_node(self, value)
+        self.tree = self._remove_node(self.tree, value)
 
-    def remove_node(self, tree, value):
+    def _remove_node(self, tree: BinaryTreeNode, value: Any) -> BinaryTreeNode:
         """
         Remove a node from the tree
         :param tree:  Tree to remove from within
@@ -107,9 +116,9 @@ class BinaryTree:
             return tree
         else:
             if value < tree.value:
-                tree.left = self.remove_node(tree.left, value)
+                tree.left = self._remove_node(tree.left, value)
             elif value > tree.value:
-                tree.right = self.remove_node(tree.right, value)
+                tree.right = self._remove_node(tree.right, value)
             else:
                 if None is tree.right:
                     return tree.left
@@ -122,5 +131,18 @@ class BinaryTree:
                     temp_node = temp_node.left
                     the_min = temp_node.value
                 # Now remove it from the right tree
-                tree.right = self.remove_node(tree.right, the_min)
+                tree.right = self._remove_node(tree.right, the_min)
+                tree.value = the_min
         return tree
+
+    @classmethod
+    def get_height(cls, node: BinaryTreeNode) -> int:
+        """
+        Find node height
+        :param node:  Node to process
+        :return: Hight of node
+        """
+        if not node:
+            return 0
+
+        return node.height
