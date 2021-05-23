@@ -7,8 +7,14 @@ class SingleNode:
 
 
 class LinkedList:
-    myHead: SingleNode = None
-    myTail: SingleNode = None
+    def __init__(self, root=None):
+        self.myHead: SingleNode = root
+        if root:
+            self.myTail = root
+            while self.myTail.next:
+                self.myTail = self.myTail.next
+
+        self.myTail: SingleNode = None
 
     def add(self, value) -> None:
         """
@@ -98,3 +104,53 @@ class LinkedList:
         while None is not startPos.next and startPos.next != endPos:
             startPos = startPos.next
         return startPos
+
+    def find_middle(self) -> SingleNode:
+        return LinkedList.middle(self.myHead)
+
+    @classmethod
+    def middle(cls, root: SingleNode):
+        answer = root
+        movers = root
+        count = 0
+        while movers:
+            if count & 1:
+                answer = answer.next
+            count += 1
+            movers = movers.next
+        return answer
+
+    @classmethod
+    def merge(cls, first: SingleNode, second: SingleNode) -> SingleNode:
+        dummy = SingleNode()
+        dummy.value = -1
+        build_list: SingleNode = dummy
+        while first and second:
+            if first.value < second.value:
+                build_list.next = first
+                first = first.next
+            else:
+                build_list.next = second
+                second = second.next
+            build_list = build_list.next
+        if first:
+            build_list.next = first
+        if second:
+            build_list.next = second
+
+        return dummy.next
+
+
+if __name__ == '__main__':
+    num_nodes = 16
+    data: LinkedList = LinkedList()
+    for index in range(0, num_nodes):
+        data.add(index)
+    second_list: LinkedList = LinkedList()
+    for index in range(num_nodes, num_nodes * 2):
+        second_list.add(index)
+    nodes = LinkedList.merge(second_list.myHead, data.myHead)
+    mover = nodes
+    while mover:
+        print(f'{mover.value}')
+        mover = mover.next
